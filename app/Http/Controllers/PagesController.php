@@ -16,7 +16,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::orderBy('updated_at', 'desc')->paginate(2);
         return view('pages/index', compact('pages'));
     }
 

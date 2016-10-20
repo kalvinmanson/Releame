@@ -11,6 +11,14 @@
 |
 */
 
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('dashboard', 'HomeController@dashboard');
+    Route::resource('categories', 'CategoriesController');
+    Route::resource('pages', 'PagesController');
+    Route::resource('posts', 'PostsController');
+    Route::resource('users', 'UsersController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,7 +33,4 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 //mis rutas
-Route::get('pages', 'PagesController@index');
-Route::get('pages/create', 'PagesController@create');
-Route::post('pages', 'PagesController@store');
 Route::get('pages/{slug}', 'PagesController@show')->where('slug', '[a-z,0-9-]+');
