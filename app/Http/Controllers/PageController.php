@@ -7,7 +7,7 @@ use App\Page;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PagesController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = Page::orderBy('updated_at', 'desc')->paginate(2);
+        $pages = Page::orderBy('updated_at', 'desc')->paginate(20);
         return view('pages/index', compact('pages'));
     }
 
@@ -44,7 +44,7 @@ class PagesController extends Controller
         ]);
         $nuevanota = request()->all();
         Page::create($nuevanota);
-        return redirect()->action('PagesController@index');
+        return redirect()->action('PageController@index');
     }
 
     /**

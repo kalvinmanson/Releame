@@ -14,6 +14,12 @@ class CreateFieldsTable extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('page_id')->unsigned();
+            $table->foreign('page_id')->references('id')->on('pages');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('name');
+            $table->text('content');
             $table->timestamps();
         });
     }

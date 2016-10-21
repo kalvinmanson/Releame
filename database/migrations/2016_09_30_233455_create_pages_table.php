@@ -14,10 +14,12 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('content');
+            $table->string('country');
             $table->timestamps();
         });
     }
