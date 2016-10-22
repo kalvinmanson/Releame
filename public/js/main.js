@@ -13,15 +13,20 @@ $(document).ready(function() {
 		imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif', 'svg'],
 		imageManagerLoadURL: "/admin/pictures/manager",
 		imageManagerLoadMethod: "GET",
-		imageManagerDeleteURL: 	"/admin/pictures/",
+		imageManagerDeleteURL: 	"/admin/pictures/"+this.id,
 		imageManagerDeleteMethod: 	"POST",
 		imageManagerDeleteParams: {
 	        froala: 'true', 
+	        id: 	this.id,
             _method:   'delete',
 	        _token: token
 	    }
 	}).on('froalaEditor.imageManager.beforeDeleteImage', function (e, editor, $img) {
         // Do something before deleting an image from the image manager.
-        alert ('Image will be deleted.');
+        console.log($img.data('id'));
+      })
+	.on('froalaEditor.imageManager.imageDeleted', function (e, editor, data) {
+        // Do something after the image was deleted from the image manager.
+        console.log(data);
       });
 });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Storage;
+use File;
 use Illuminate\Http\Request;
 use App\Picture;
 use App\Http\Requests;
@@ -12,14 +14,13 @@ class PictureController extends Controller
 {
 
     public function manager() {
-        $pictures = Picture::orderBy('updated_at', 'desc')->paginate(40);
-        /*return response()->json([[
-            'url' => '/images/921-back.jpg',
-            'thumb' => '/images/921-back.jpg',
-            'tag' => 'Etiqueta'
-        ]]);*/
-        return $pictures->toJson();
 
+        $pictures = Picture::orderBy('updated_at', 'desc')->get();
+        $pictures_output = [];
+        foreach($pictures as &$picture) {
+            array_push($pictures_output, ['url' => '/images/'.$picture->file_name, 'thumb' => '/images/'.$picture->file_name, 'id' => $picture->id]);
+        }
+        return response()->json($pictures_output);
     }
     /**
      * Display a listing of the resource.
@@ -56,12 +57,14 @@ class PictureController extends Controller
             'picture'   => 'mimes:jpeg,bmp,png'
         ]);
         if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
-            $filename = rand(100,999).'-'.$request->file('picture')->getClientOriginalName();
 
+            $filename = rand(100,999).'-'.$request->file('picture')->getClientOriginalName();
             //save file
-            $request->file('picture')->move('images', $filename);
+            Storage::disk('local')->put($filename, File::get($request->file('picture')));
+
+
             $request->merge([ 'user_id' => Auth::user()->id ]);
-            $request->merge([ 'file_name' => '/images/'.$filename ]);
+            $request->merge([ 'file_name' => $filename ]);
 
             //save record
             $picture = request()->all();
@@ -118,8 +121,11 @@ class PictureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Picture::destroy($id);
+        $picture = Picture::find($id);
+        Picture::destroy($picture->id);
+        Storage::disk('local')->delete($picture->file_name);
+        return response()->json($picture->file_name);
     }
 }

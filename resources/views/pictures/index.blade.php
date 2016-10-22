@@ -7,7 +7,7 @@
 <div class="row">
 	@foreach ($pictures as $picture)
 		<div class="col-sm-2">
-			<img src="{{ $picture->file_name }}" class="img-responsive">
+			<a href="{{ '/images/'.$picture->file_name }}" class="fancyb"><img src="{{ '/images/'.$picture->file_name }}" class="img-responsive"></a>
 			<a href="{{ route('admin.pictures.edit', $picture->id) }}">{{ $picture->name }} </a>
 			{!! Form::open([
 	            'method' => 'DELETE',
