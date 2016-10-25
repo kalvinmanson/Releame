@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<a href="{{ url('admin/pages/create') }}" class="btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> Crear</a>
+<a href="#add_form" class="fancyb btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> Crear</a>
 <h1>Pages</h1>
 <table class="table table-striped">
 	<tr>
@@ -29,5 +29,23 @@
 {!! $pages->render() !!}
 
 
+<div class="add_form" id="add_form" style="display: none;">
+	<form method="POST" action="{{ url('admin/pages') }}">
+
+		@include('partials.errors')
+
+
+		<div class="form-group">
+			<label for="name">Nombre</label>
+			<input name="name" type="text" class="form-control input-lg" value="{{ old('name') }}">	
+		</div>
+		<div class="form-group">
+			<input name="slug" type="text" class="form-control input-xd" value="{{{ old('slug') ? old('slug') : rand(1000000,9999999) }}}">	
+		</div>
+		<input type="hidden" name="category_id" value="1">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</form>
+</div>
 
 @endsection

@@ -10,19 +10,8 @@
     {!! Html::style('css/jquery.fancybox.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
-    {!! Html::style('editor/css/froala_editor.min.css') !!}
-    {!! Html::style('editor/css/froala_style.min.css') !!}
-    {!! Html::style('editor/css/plugins/char_counter.css') !!}
-    {!! Html::style('editor/css/plugins/code_view.css') !!}
-    {!! Html::style('editor/css/plugins/colors.css') !!}
-    {!! Html::style('editor/css/plugins/fullscreen.css') !!}
-    {!! Html::style('editor/css/plugins/image.css') !!}
-    {!! Html::style('editor/css/plugins/image_manager.css') !!}
-    {!! Html::style('editor/css/plugins/line_breaker.css') !!}
-    {!! Html::style('editor/css/plugins/table.css') !!}
-    {!! Html::style('editor/css/plugins/video.css') !!}
-
     {!! Html::style('css/admin.css') !!}
+    {!! Html::script('editor/ckeditor.js') !!}
     
 </head>
 <body>
@@ -49,32 +38,6 @@
 	{!! Html::script('js/jquery.min.js') !!}
 	{!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/jquery.fancybox.pack.js') !!}
-	{!! Html::script('editor/js/froala_editor.min.js') !!}
-	<!-- /froala plugins -->
-	{!! Html::script('editor/js/plugins/align.min.js') !!}
-	{!! Html::script('editor/js/plugins/char_counter.min.js') !!}
-	{!! Html::script('editor/js/plugins/code_beautifier.min.js') !!}
-	{!! Html::script('editor/js/plugins/code_view.min.js') !!}
-	{!! Html::script('editor/js/plugins/colors.min.js') !!}
-	{!! Html::script('editor/js/plugins/entities.min.js') !!}
-	{!! Html::script('editor/js/plugins/font_family.min.js') !!}
-	{!! Html::script('editor/js/plugins/font_size.min.js') !!}
-	{!! Html::script('editor/js/plugins/fullscreen.min.js') !!}
-	{!! Html::script('editor/js/plugins/image.min.js') !!}
-	{!! Html::script('editor/js/plugins/image_manager.min.js') !!}
-	{!! Html::script('editor/js/plugins/inline_style.min.js') !!}
-	{!! Html::script('editor/js/plugins/line_breaker.min.js') !!}
-	{!! Html::script('editor/js/plugins/link.min.js') !!}
-	{!! Html::script('editor/js/plugins/lists.min.js') !!}
-	{!! Html::script('editor/js/plugins/paragraph_format.min.js') !!}
-	{!! Html::script('editor/js/plugins/paragraph_style.min.js') !!}
-	{!! Html::script('editor/js/plugins/quote.min.js') !!}
-	{!! Html::script('editor/js/plugins/table.min.js') !!}
-	{!! Html::script('editor/js/plugins/url.min.js') !!}
-	{!! Html::script('editor/js/plugins/video.min.js') !!}
-
-	{!! Html::script('editor/js/languages/es.js') !!}
-	<!-- /end froala plugins -->
 	{!! Html::script('js/main.js') !!}
 </body>
 </html>

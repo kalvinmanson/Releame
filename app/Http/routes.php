@@ -15,6 +15,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('pictures/manager', 'PictureController@manager');
     Route::resource('pages', 'PageController');
     Route::resource('pictures', 'PictureController');
+    Route::resource('categories', 'CategoryController');
 });
 
 Route::get('/', function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
+use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,6 +17,7 @@ class PageController extends Controller
      */
     public function index()
     {
+        
         $pages = Page::orderBy('updated_at', 'desc')->paginate(20);
         return view('pages/index', compact('pages'));
     }
@@ -27,7 +29,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('pages/create');
+        $categories = Category::all();
+        return view('pages/create', compact('categories'));
     }
 
     /**
@@ -39,11 +42,11 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => ['required', 'max:50'],
+            'name' => ['required', 'max:100'],
             'slug' => ['unique:pages', 'required', 'max:50']
         ]);
-        $nuevanota = request()->all();
-        Page::create($nuevanota);
+        $record_store = request()->all();
+        Page::create($record_store);
         return redirect()->action('PageController@index');
     }
 
