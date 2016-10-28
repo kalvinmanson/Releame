@@ -96,6 +96,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        Category::destroy($category->id);
+        return redirect()->action('CategoryController@index');
     }
 }

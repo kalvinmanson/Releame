@@ -1,27 +1,29 @@
 @extends('layouts.admin')
 
 @section('content')
-<a href="#add_form" class="fancyb btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> Crear</a>
+<a href="#add_form" class="fancyb btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> New</a>
 <h1>Pages</h1>
 <table class="table table-striped">
 	<tr>
 		<th width="20">ID</th>
-		<th width="150">TimeStamps</th>
 		<th>Name</th>
-		<th>Category</th>
+		<th width="150">Category</th>
+		<th width="30">Country</th>
+		<th width="150">TimeStamps</th>
 	</tr>
 	@foreach ($pages as $page)
 	<tr>
 		<td>{{ $page->id }}</td>
-		<td>{{ $page->created_at }}<br>
-		{{ \Carbon\Carbon::createFromTimeStamp(strtotime($page->created_at))->diffForHumans() }}
-		</td>
 		<td>
 			<a href="{{ route('admin.pages.edit', $page->id) }}">{{ $page->name }} </a><br />
 			<small>/{{ $page->slug }}</small>
 			
 		</td>
-		<td>{{ $page->category ? $page->category->id : "None" }}</td>
+		<td>{{ $page->category ? $page->category->name : "None" }} </td>
+		<td>{{ $page->country }}</td>
+		<td>{{ $page->created_at }}<br>
+		{{ \Carbon\Carbon::createFromTimeStamp(strtotime($page->created_at))->diffForHumans() }}
+		</td>
 
 	</tr>
 	@endforeach
@@ -40,7 +42,7 @@
 			<input name="name" type="text" class="form-control input-lg" value="{{ old('name') }}">	
 		</div>
 		<div class="form-group">
-			<input name="slug" type="text" class="form-control input-xd" value="{{{ old('slug') ? old('slug') : rand(1000000,9999999) }}}">	
+			<input name="slug" type="text" class="form-control input-xd" value="{{ old('slug') ? old('slug') : rand(1000000,9999999) }}">	
 		</div>
 		<input type="hidden" name="category_id" value="1">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">

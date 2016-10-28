@@ -7,4 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = ['name', 'slug'];
+
+    public function pages()
+    {
+        return $this->hasMany('App\Page');
+    }
+
+    // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($category) { // before delete() method call this
+             $category->pages()->delete();
+             // do the rest of the cleanup...
+        });
+    }
 }

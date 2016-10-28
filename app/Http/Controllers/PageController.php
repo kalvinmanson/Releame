@@ -69,7 +69,9 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Page::find($id);
+        $categories = Category::all();
+        return view('pages/edit', compact('page', 'categories'));
     }
 
     /**
@@ -81,7 +83,16 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $page = Page::find($id);
+
+        $this->validate(request(), [
+            'name' => ['required', 'max:100'],
+            'slug' => ['unique:pages,slug,'.$page->id, 'required', 'max:50']
+
+        ]);
+        $record_store = request()->all();
+        $page->fill($record_store)->save();
+        return redirect()->action('PageController@index');
     }
 
     /**
@@ -92,6 +103,8 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $page = Page::find($id);
+        Page::destroy($page->id);
+        return redirect()->action('PageController@index');
     }
 }
