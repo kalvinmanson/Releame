@@ -10,7 +10,7 @@ class Menu extends Model
 
     public function links()
     {
-        return $this->hasMany('App\Link');
+        return $this->hasMany('App\Link')->orderBy('orden', 'asc');
     }
 
     // this is a recommended way to declare event handlers

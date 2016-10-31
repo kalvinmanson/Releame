@@ -9,6 +9,7 @@
     
 </head>
 <body>
+	@include('partials.menu', ['menu_id' => 2])
 	@yield('content')
 
 	{!! Html::script('js/jquery.min.js') !!}

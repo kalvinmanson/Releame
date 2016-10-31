@@ -59,7 +59,7 @@ class PageController extends Controller
     public function show($category, $slug)
     {
         $page = Page::where('slug', $slug)->firstOrFail();
-        dd($page);
+        return view('pages/show', compact('page'));
     }
 
     /**

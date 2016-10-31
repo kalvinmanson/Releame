@@ -15,7 +15,7 @@
 		<td>{{ $category->id }}</td>
 		<td>
 			<a href="{{ route('admin.categories.edit', $category->id) }}">{{ $category->name }} </a><br />
-			<small>/{{ $category->slug }}</small>
+			<small><a href="/{{ $category->slug }}" target="_blank">/{{ $category->slug }}</a></small>
 		</td>
 		<td>
 			{{ $category->pages->count() }}
