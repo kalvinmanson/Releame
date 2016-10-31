@@ -56,9 +56,10 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($category, $slug)
     {
-        //
+        $page = Page::where('slug', $slug)->firstOrFail();
+        dd($page);
     }
 
     /**

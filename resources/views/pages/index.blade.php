@@ -16,7 +16,7 @@
 		<td>{{ $page->id }}</td>
 		<td>
 			<a href="{{ route('admin.pages.edit', $page->id) }}">{{ $page->name }} </a><br />
-			<small>/{{ $page->slug }}</small>
+			<small><a href="/{{ $page->category->slug }}/{{ $page->slug }}" target="_blank">/{{ $page->category->slug }}/{{ $page->slug }}</a></small>
 			
 		</td>
 		<td>{{ $page->category ? $page->category->name : "None" }} </td>

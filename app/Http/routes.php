@@ -16,6 +16,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('pages', 'PageController');
     Route::resource('pictures', 'PictureController');
     Route::resource('categories', 'CategoryController');
+    Route::resource('fields', 'FieldController');
+    Route::resource('menus', 'MenuController');
+    Route::resource('links', 'LinkController');
+    Route::resource('users', 'UserController');
 });
 
 Route::get('/', function () {
@@ -32,7 +36,8 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 //mis rutas
-Route::get('pages/{slug}', 'PageController@show')->where('slug', '[a-z,0-9-]+');
+Route::get('{category}/{slug}', 'PageController@show')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
+Route::get('{slug}', 'CategoryController@show')->where('slug', '[a-z,0-9-]+');
 
 //storage route
 Route::get('images/{filename}', function ($filename)

@@ -12,4 +12,9 @@ class Page extends Model
     {
         return $this->belongsTo('App\Category');
     }
+    
+    public function fields()
+    {
+        return $this->hasMany('App\Field');
+    }
 }

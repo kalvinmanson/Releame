@@ -23,7 +23,6 @@
 				<li><a href="{{ url('admin/categories') }}">Cetegories</a></li>
 				<li><a href="{{ url('admin/pictures') }}">Pictures</a></li>
 				<li><a href="{{ url('admin/menus') }}">Menús</a></li>
-				<li><a href="{{ url('admin/links') }}">Links</a></li>
 				<li><a href="{{ url('admin/users') }}">Users</a></li>
 				<li><a href="{{ url('auth/logout') }}">Logout</a></li>
 			</ul>
@@ -37,6 +36,7 @@
 
 	{!! Html::script('js/jquery.min.js') !!}
 	{!! Html::script('js/bootstrap.min.js') !!}
+	{!! Html::script('js/bootstrap3-typeahead.min.js') !!}
 	{!! Html::script('js/jquery.fancybox.pack.js') !!}
 	{!! Html::script('js/main.js') !!}
 </body>

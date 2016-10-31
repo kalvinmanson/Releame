@@ -13,6 +13,11 @@ class Category extends Model
         return $this->hasMany('App\Page');
     }
 
+    public function fields()
+    {
+        return $this->hasMany('App\Field');
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();

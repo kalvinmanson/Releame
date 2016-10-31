@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+
+use Auth;
+use App\Link;
+
 use Illuminate\Http\Request;
-use App\Category;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('updated_at', 'desc')->paginate(20);
-        return view('categories/index', compact('categories'));
+        //
     }
 
     /**
@@ -27,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories/create');
+        
     }
 
     /**
@@ -38,13 +41,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(request(), [
-            'name' => ['required', 'max:100'],
-            'slug' => ['unique:categories', 'required', 'max:50']
+        //validation
+        $this->validate($request, [
+            'name'          =>  'required',
+            'menu_id'       =>  'required',
+            'country'       =>  'required'
         ]);
-        $record_store = request()->all();
-        Category::create($record_store);
-        return redirect()->action('CategoryController@index');
+        
+        //save record
+        $link = request()->all();
+        Link::create($link);
+
+        //response
+        return redirect()->action('MenuController@edit', $link['menu_id']);
     }
 
     /**
@@ -53,10 +62,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
-        dd($category);
+        $link = Link::find($id);
+        dd($link->children);
     }
 
     /**
@@ -67,8 +76,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('categories/edit', compact('category'));
+        //
     }
 
     /**
@@ -80,13 +88,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $this->validate(request(), [
-            'name' => ['required', 'max:100']
-        ]);
-        $record_store = request()->all();
-        $category->fill($record_store)->save();
-        return redirect()->action('CategoryController@index');
+        //
     }
 
     /**
@@ -97,8 +99,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        Category::destroy($category->id);
-        return redirect()->action('CategoryController@index');
+        $link = Link::find($id);
+        Link::destroy($link->id);
+        return redirect()->action('MenuController@edit', $link['menu_id']);
     }
 }

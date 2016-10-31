@@ -1,29 +1,39 @@
 <!-- resources/views/auth/register.blade.php -->
+@extends('layouts.auth')
 
-<form method="POST" action="/auth/register">
-    {!! csrf_field() !!}
+@section('content')
 
-    <div>
-        Name
-        <input type="text" name="name" value="{{ old('name') }}">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Login</h4></div>
+        <div class="panel-body">
+
+            <form method="POST" action="/auth/register">
+                {!! csrf_field() !!}
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
-    </div>
-
-    <div>
-        Password
-        <input type="password" name="password">
-    </div>
-
-    <div>
-        Confirm Password
-        <input type="password" name="password_confirmation">
-    </div>
-
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+@endsection
