@@ -22,9 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('users', 'UserController');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WebController@index');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -36,8 +34,9 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 //mis rutas
-Route::get('{category}/{slug}', 'PageController@show')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
-Route::get('{slug}', 'CategoryController@show')->where('slug', '[a-z,0-9-]+');
+Route::get('c-{category}/{slug}', 'WebController@page')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
+Route::get('c-{slug}', 'WebController@category')->where('slug', '[a-z,0-9-]+');
+Route::match(['get', 'post'], 'contact', 'WebController@contact');
 
 //storage route
 Route::get('images/{filename}', function ($filename)
