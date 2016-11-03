@@ -25,7 +25,7 @@ abstract class Controller extends BaseController
     	if($domain == "domain.country") {
     		return "ec";
     	} else {
-    		return "co";
+    		return "mx";
     	}
     }
 
