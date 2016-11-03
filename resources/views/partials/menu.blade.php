@@ -1,7 +1,7 @@
 <?php 
 	$menul0 = $site_menus->where('menu_id', $menu_id)->where('parent_id', 0);
  ?>
-<ul>
+<ul class="menuid_{{ $menu_id }}">
 	@foreach($menul0 as $link)
 	<li><a href="{{ $link->link }}">{{ $link->name }}</a>
 		@if ($link->children->count() > 0)
