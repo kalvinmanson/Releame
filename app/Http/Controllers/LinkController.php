@@ -76,7 +76,8 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $link = Link::find($id);
+        return view('links/edit', compact('link'));
     }
 
     /**
@@ -88,7 +89,14 @@ class LinkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $link = Link::find($id);
+
+        $this->validate(request(), [
+            'name' => ['required', 'max:100']
+        ]);
+        $record_store = request()->all();
+        $link->fill($record_store)->save();
+        return redirect()->action('MenuController@edit', $link['menu_id']);
     }
 
     /**

@@ -15,18 +15,24 @@ abstract class Controller extends BaseController
 
     public function __construct() {
 
-    	$menu = Link::where('country', 'all')->orWhere('country', $this::country())->orderBy('orden', 'asc')->get();
+        $global_links = Link::where('parent_id', 0)
+        ->where(function($query){
+            $query->where('country', 'all');
+            $query->orWhere('country', $this::country());
+        })
+        ->orderBy('orden', 'asc')->get();
 
-        view()->share('site_menus', $menu);
-    	view()->share('country', $this::country());
+
+        view()->share('country', $this::country());
+        view()->share('global_links', $global_links);
     }
     public function country() {
-    	$domain = request()->server->get('SERVER_NAME');
-    	if($domain == "domain.country") {
-    		return "ec";
-    	} else {
-    		return "mx";
-    	}
+        $domain = request()->server->get('SERVER_NAME');
+        if($domain == "domain.country") {
+            return "ec";
+        } else {
+            return "co";
+        }
     }
 
 

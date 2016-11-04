@@ -26,7 +26,10 @@
 			    'method' => 'DELETE',
 			    'route' => ['admin.links.destroy', $link->id]
 			]) !!}
-			    <button type="submit" class="btn btn-xs btn-danger pull-right"><i class="fa fa-remove"></i></button>
+				<div class="btn-group pull-right">
+					<a href="/admin/links/{{ $link->id }}/edit" class="btn btn-xs btn-warning fancya"><i class="fa fa-edit"></i></a>
+			    	<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
+			    </div>
 			{!! Form::close() !!}
 
 			<span class="badge">country: {{ $link->country }}</span>
@@ -40,7 +43,10 @@
 					    'method' => 'DELETE',
 					    'route' => ['admin.links.destroy', $linkl2->id]
 					]) !!}
-					    <button type="submit" class="btn btn-xs btn-danger pull-right"><i class="fa fa-remove"></i></button>
+						<div class="btn-group pull-right">
+							<a href="/admin/links/{{ $linkl2->id }}/edit" class="btn btn-xs btn-warning fancya"><i class="fa fa-edit"></i></a>
+					    	<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
+					    </div>
 					{!! Form::close() !!}
 
 					<span class="badge">country: {{ $linkl2->country }}</span>

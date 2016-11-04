@@ -29,7 +29,10 @@
 	  	    'method' => 'DELETE',
 	  	    'route' => ['admin.fields.destroy', $field->id]
 	  	]) !!}
-	  	    <button type="submit" class="btn btn-danger btn-xs pull-right"><i class="fa fa-remove"></i></button>
+	  		<div class="btn-group pull-right">
+		  	    <a href="/admin/fields/{{ $field->id }}/edit" class="btn btn-warning btn-xs fancya"><i class="fa fa-edit"></i></a>
+		  	    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></button>
+	  	    </div>
 	  	{!! Form::close() !!}
 
 	    <h4 class="list-group-item-heading">{{ $field->name }}</h4>

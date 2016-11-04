@@ -75,7 +75,8 @@ class FieldController extends Controller
      */
     public function edit($id)
     {
-        //
+        $field = Field::find($id);
+        return view('fields/edit', compact('field'));
     }
 
     /**
@@ -87,7 +88,14 @@ class FieldController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $field = Field::find($id);
+
+        $this->validate(request(), [
+            'name' => ['required', 'max:100']
+        ]);
+        $record_store = request()->all();
+        $field->fill($record_store)->save();
+        return redirect()->action('PageController@edit', $field['page_id']);
     }
 
     /**

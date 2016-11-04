@@ -12,9 +12,7 @@
 */
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('pictures/manager', 'PictureController@manager');
     Route::resource('pages', 'PageController');
-    Route::resource('pictures', 'PictureController');
     Route::resource('categories', 'CategoryController');
     Route::resource('fields', 'FieldController');
     Route::resource('menus', 'MenuController');
@@ -37,22 +35,3 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('c-{category}/{slug}', 'WebController@page')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
 Route::get('c-{slug}', 'WebController@category')->where('slug', '[a-z,0-9-]+');
 Route::match(['get', 'post'], 'contact', 'WebController@contact');
-
-//storage route
-Route::get('images/{filename}', function ($filename)
-{
-    $path = storage_path('app') . '/' . $filename;
-
-    if(!File::exists($path)) {
-    	return $path;
-    	//abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-});
