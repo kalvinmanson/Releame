@@ -4,9 +4,9 @@
 @section('content')
 
     <div class="panel panel-default">
-        <div class="panel-heading"><h4>Login</h4></div>
+        <div class="panel-heading"><h4>Register</h4></div>
         <div class="panel-body">
-
+            @include('partials.errors')
             <form method="POST" action="/auth/register">
                 {!! csrf_field() !!}
 

@@ -68,7 +68,7 @@ class MenuController extends Controller
     public function edit($id)
     {
         $menu = Menu::find($id);
-        $linksl1 = Link::where('parent_id', 0)->orderBy('orden', 'asc')->get();
+        $linksl1 = Link::where('parent_id', 0)->where('menu_id', $menu->id)->orderBy('orden', 'asc')->get();
         return view('menus/edit', compact('menu', 'linksl1'));
     }
 

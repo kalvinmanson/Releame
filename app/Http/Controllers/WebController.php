@@ -33,7 +33,14 @@ class WebController extends Controller
     public function page($category, $slug)
     {
         $page = Page::where('slug', $slug)->firstOrFail();
-        return view('web/page', compact('page'));
+
+        if (view()->exists('web.cetegory')) {
+            return view('web/page-id-'.$slug, compact('page'));
+        } elseif (view()->exists('web.page-cat-'.$category)) {
+            return view('web/page-cat-'.$category, compact('page'));
+        } else {
+            return view('web/page', compact('page'));
+        }
     }
     // Send email
     public function contact(Request $request) {

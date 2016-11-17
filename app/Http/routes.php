@@ -28,10 +28,10 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+/*Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');*/
 
 //mis rutas
-Route::get('c-{category}/{slug}', 'WebController@page')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
-Route::get('c-{slug}', 'WebController@category')->where('slug', '[a-z,0-9-]+');
+Route::get('c/{category}/{slug}', 'WebController@page')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');
+Route::get('c/{slug}', 'WebController@category')->where('slug', '[a-z,0-9-]+');
 Route::match(['get', 'post'], 'contact', 'WebController@contact');
