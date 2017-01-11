@@ -1,23 +1,11 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 
 <h1>Edit category</h1>
 <form method="POST" action="{{ url('admin/categories/'.$category->id) }}">
-
-	@if (count($errors) > 0)
-	    <div class="alert alert-danger">
-	        <ul>
-	            @foreach ($errors->all() as $error)
-	                <li>{{ $error }}</li>
-	            @endforeach
-	        </ul>
-	    </div>
-	@endif
-
-
 	<div class="form-group">
-		<label for="name">Nombre</label>
+		<label for="name">Name</label>
 		<input name="name" type="text" class="form-control input-lg" value="{{ old('name') ? old('name') : $category->name }}">	
 	</div>
 	<div class="form-group">

@@ -23,36 +23,50 @@ class WebController extends Controller
     {
         return view('web/index');
     }
-    //Show category
+     //Show category
     public function category($slug)
     {
+        $country = $this->country();
         $category = Category::where('slug', $slug)->firstOrFail();
-        return view('web/category', compact('category'));
+        $pages = Page::where('category_id', $category->id)->where('country', $country)->orderBy('created_at', 'desc')->paginate(6);
+
+        if (view()->exists('web/category-'.$slug)) {
+            return view('web/category-'.$slug, compact('category', 'pages', 'blocks'));
+        } else {
+            return view('web/category', compact('category', 'pages', 'blocks'));
+        }
     }
     //Show Page
     public function page($category, $slug)
     {
+        $country = $this->country();
         $page = Page::where('slug', $slug)->firstOrFail();
 
-        if (view()->exists('web.cetegory')) {
-            return view('web/page-id-'.$slug, compact('page'));
-        } elseif (view()->exists('web.page-cat-'.$category)) {
-            return view('web/page-cat-'.$category, compact('page'));
+        if (view()->exists('web.page-cat-'.$category)) {
+            return view('web/page-cat-'.$category, compact('page', 'blocks'));
         } else {
-            return view('web/page', compact('page'));
+            return view('web/page', compact('page', 'blocks'));
         }
     }
     // Send email
     public function contact(Request $request) {
         if($request->method() == "POST") {
-            
-            //enviar email
-            $data = [];
-            Mail::send('emails.welcome', $data, function ($message) {
-                $message->from('dev@musculodigital.com', 'Dev Musculo Digital');
 
+            $data = [
+                        'data' => [
+                            'name'=>$request->name, 
+                            'email'=>$request->email,
+                            'celphone'=>$request->celphone,
+                            'subject'=>$request->subject,
+                            'content'=>$request->content
+                        ]
+                    ];
+            Mail::send('emails.contact', $data, function ($message) {
+                $message->from('no-reply@droni.co', 'No Reply | Drodmin');
+                $message->subject("Contacto Web Drodmin");
                 $message->to('kalvinmanson@gmail.com')->cc('gustavo.barragan@musculocreativo.com.co');
             });
+            return view('web/contact_thanks');
 
         } else {
             return view('web/contact');

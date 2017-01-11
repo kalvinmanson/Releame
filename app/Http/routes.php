@@ -18,6 +18,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('menus', 'MenuController');
     Route::resource('links', 'LinkController');
     Route::resource('users', 'UserController');
+
+    //personales
+	Route::post('pages/duplicate', ['as' => 'admin.pages.duplicate', 'uses' => 'PageController@duplicate']);
 });
 
 Route::get('/', 'WebController@index');
@@ -28,8 +31,8 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
-/*Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');*/
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 //mis rutas
 Route::get('c/{category}/{slug}', 'WebController@page')->where('category', '[a-z,0-9-]+')->where('slug', '[a-z,0-9-]+');

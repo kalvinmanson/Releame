@@ -10,35 +10,29 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
+    public function duplicate(Request $request) {
+        $page = Page::find($request->id);
+        $newPage = $page->replicate();
+        $newPage->slug = $newPage->slug .'-copy'; 
+        $newPage->save();
+
+        return redirect()->action('PageController@edit', $newPage->id);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        $pages = Page::orderBy('updated_at', 'desc')->paginate(20);
+        if(isset($request->q)) {
+            $pages = Page::where('name', 'LIKE', '%'.$request->q.'%')->orWhere('content', 'LIKE', '%'.$request->q.'%')->orderBy('updated_at', 'desc')->paginate(100);
+        } else {
+            $pages = Page::orderBy('updated_at', 'desc')->paginate(50);
+        }
         return view('pages/index', compact('pages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::all();
-        return view('pages/create', compact('categories'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate(request(), [
@@ -46,42 +40,16 @@ class PageController extends Controller
             'slug' => ['unique:pages', 'required', 'max:50']
         ]);
         $record_store = request()->all();
-        Page::create($record_store);
-        return redirect()->action('PageController@index');
+        $page = Page::create($record_store);
+        return redirect()->action('PageController@edit', $page->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($category, $slug)
-    {
-        $page = Page::where('slug', $slug)->firstOrFail();
-        return view('pages/show', compact('page'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $page = Page::find($id);
         $categories = Category::all();
         return view('pages/edit', compact('page', 'categories'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $page = Page::find($id);
@@ -89,19 +57,11 @@ class PageController extends Controller
         $this->validate(request(), [
             'name' => ['required', 'max:100'],
             'slug' => ['unique:pages,slug,'.$page->id, 'required', 'max:50']
-
         ]);
         $record_store = request()->all();
         $page->fill($record_store)->save();
         return redirect()->action('PageController@index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $page = Page::find($id);

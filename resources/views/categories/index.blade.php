@@ -1,8 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-<a href="#add_form" class="fancyb btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> New</a>
-<h1>Categories</h1>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  	<a class="navbar-brand" href="{{ route('admin.categories.index') }}">Categories</a>
+    <ul class="nav navbar-nav navbar-right">
+	  <li><a href="#add_form" class="fancyb"><i class="fa fa-plus"></i> New</a></li>
+	</ul>
+  </div>
+</nav>
+
 <table class="table table-striped">
 	<tr>
 		<th width="20">ID</th>
@@ -32,20 +40,8 @@
 
 <div class="add_form" id="add_form" style="display: none;">
 	<form method="POST" action="{{ url('admin/categories') }}">
-
-		@if (count($errors) > 0)
-		    <div class="alert alert-danger">
-		        <ul>
-		            @foreach ($errors->all() as $error)
-		                <li>{{ $error }}</li>
-		            @endforeach
-		        </ul>
-		    </div>
-		@endif
-
-
 		<div class="form-group">
-			<label for="name">Nombre</label>
+			<label for="name">Name</label>
 			<input name="name" type="text" class="form-control input-lg" value="{{ old('name') }}">	
 		</div>
 		<div class="form-group">

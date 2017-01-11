@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<title>Drodmin - @yield('title')</title>
 	<meta charset="utf-8">
+	<title>Drodmin - @yield('title')</title>
+	<meta name="keywords" content="@yield('meta-keywords')">
+    <meta name="description" content="@yield('meta-keywords')">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {!! Html::style('css/bootstrap.min.css') !!}
@@ -10,17 +12,32 @@
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/admin.css') !!}
+    {!! Html::script('editor/ckeditor.js') !!}
     
 </head>
 <body>
 	<header>
-		<p>header</p>
+		<div class="container">
+			<p align="center"><a href="{{ url('/') }}"><img src="http://droni.co/img/logo-dronico.png"></a></p>
+			@include('partials.menu', ['menu_id' => 1])
+		</div>
+
 	</header>
-	@include('partials.menu', ['menu_id' => 1])
-	@yield('content')
+		<div class="container">
+			@include('flash::message')
+     		@include('partials.errors')
+			@yield('content')
+		</div>
 	<footer>
-		<p>footer</p>
+		<div class="container">
+			<p>&copy; 2017 By Droni.co</p>
+		</div>
 	</footer>
+
+	@if (Auth::check())
+		@include('partials.admin')
+	@endif
+
 	{!! Html::script('js/jquery.min.js') !!}
 	{!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/bootstrap3-typeahead.min.js') !!}

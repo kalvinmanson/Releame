@@ -1,8 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-<a href="#add_form" class="fancyb btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> New</a>
-<h1>Menus</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  	<a class="navbar-brand" href="{{ route('admin.menus.index') }}">Menus</a>
+    <ul class="nav navbar-nav navbar-right">
+	  <li><a href="#add_form" class="fancyb"><i class="fa fa-plus"></i> New</a></li>
+	</ul>
+  </div>
+</nav>
 <table class="table table-striped">
 	<tr>
 		<th width="20">ID</th>
@@ -34,7 +40,7 @@
 
 
 		<div class="form-group">
-			<label for="name">Nombre</label>
+			<label for="name">Name</label>
 			<input name="name" type="text" class="form-control input-lg" value="{{ old('name') }}">	
 		</div>
 		<input type="hidden" name="category_id" value="1">

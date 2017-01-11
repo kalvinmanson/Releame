@@ -5,7 +5,7 @@
 	{{ csrf_field() }}
 
 	<div class="form-group">
-		<label for="name">Nombre</label>
+		<label for="name">Name</label>
 		<input name="name" type="text" class="form-control input-lg" value="{{ old('name') ? old('name') : $field->name }}">	
 	</div>
 	<div class="form-group">

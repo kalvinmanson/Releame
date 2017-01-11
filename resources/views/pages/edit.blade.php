@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 
@@ -55,5 +55,13 @@
     'route' => ['admin.pages.destroy', $page->id]
 ]) !!}
     {!! Form::submit('Delete this page?', ['class' => 'btn btn-danger pull-right']) !!}
+{!! Form::close() !!}
+
+{!! Form::open([
+    'method' => 'POST',
+    'route' => ['admin.pages.duplicate']
+]) !!}
+	<input type="hidden" name="id" value="{{ $page->id }}">
+	{!! Form::submit('Duplicate', ['class' => 'btn btn-primary pull-right']) !!}
 {!! Form::close() !!}
 @endsection
