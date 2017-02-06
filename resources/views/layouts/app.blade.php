@@ -10,8 +10,7 @@
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('css/jquery.fancybox.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
-    {!! Html::style('css/font-awesome.min.css') !!}
-    {!! Html::style('css/admin.css') !!}
+    {!! Html::style('css/app.css') !!}
     {!! Html::script('editor/ckeditor.js') !!}
     
 </head>
