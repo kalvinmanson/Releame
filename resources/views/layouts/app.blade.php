@@ -10,8 +10,11 @@
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('css/jquery.fancybox.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
+    {!! Html::style('css/animations.css') !!}
     {!! Html::style('css/app.css') !!}
-    {!! Html::script('editor/ckeditor.js') !!}
+    @if (Auth::check() && Auth::user()->rol == 'Admin')
+    	{!! Html::script('editor/ckeditor.js') !!}
+    @endif
     
 </head>
 <body>
@@ -33,13 +36,14 @@
 		</div>
 	</footer>
 
-	@if (Auth::check())
+	@if (Auth::check() && Auth::user()->rol == 'Admin')
 		@include('partials.admin')
 	@endif
 
 	{!! Html::script('js/jquery.min.js') !!}
 	{!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/bootstrap3-typeahead.min.js') !!}
+	{!! Html::script('js/css3-animate-it.js') !!}
 	{!! Html::script('js/jquery.fancybox.pack.js') !!}
 	{!! Html::script('js/main.js') !!}
 </body>

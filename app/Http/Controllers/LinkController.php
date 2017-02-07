@@ -17,6 +17,9 @@ class LinkController extends Controller
 
     public function store(Request $request)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         //validation
         $this->validate($request, [
             'name'          =>  'required',
@@ -35,6 +38,9 @@ class LinkController extends Controller
 
     public function edit($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $link = Link::find($id);
         return view('links/edit', compact('link'));
     }
@@ -42,6 +48,9 @@ class LinkController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $link = Link::find($id);
 
         $this->validate(request(), [
@@ -54,6 +63,9 @@ class LinkController extends Controller
 
     public function destroy($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+        
         $link = Link::find($id);
         Link::destroy($link->id);
         return redirect()->action('MenuController@edit', $link['menu_id']);

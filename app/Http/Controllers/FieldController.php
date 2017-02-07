@@ -19,18 +19,11 @@ class FieldController extends Controller
      */
     public function index()
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $fields = Field::groupBy('name')->get();;
         return response()->json($fields);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -41,6 +34,9 @@ class FieldController extends Controller
      */
     public function store(Request $request)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         //validation
         $this->validate($request, [
             'name'          =>  'required',
@@ -57,17 +53,6 @@ class FieldController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -75,6 +60,9 @@ class FieldController extends Controller
      */
     public function edit($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $field = Field::find($id);
         return view('fields/edit', compact('field'));
     }
@@ -88,6 +76,9 @@ class FieldController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $field = Field::find($id);
 
         $this->validate(request(), [
@@ -106,6 +97,9 @@ class FieldController extends Controller
      */
     public function destroy($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+        
         $field = Field::find($id);
         Field::destroy($field->id);
         return redirect()->action('PageController@edit', $field['page_id']);

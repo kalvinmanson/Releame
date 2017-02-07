@@ -18,18 +18,11 @@ class MenuController extends Controller
      */
     public function index()
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $menus = Menu::orderBy('updated_at', 'desc')->paginate(20);
         return view('menus/index', compact('menus'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('menus/create');
     }
 
     /**
@@ -40,23 +33,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $this->validate(request(), [
             'name' => ['required', 'max:100']
         ]);
         $record_store = request()->all();
         Menu::create($record_store);
         return redirect()->action('MenuController@index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -67,6 +52,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $menu = Menu::find($id);
         $linksl1 = Link::where('parent_id', 0)->where('menu_id', $menu->id)->orderBy('orden', 'asc')->get();
         return view('menus/edit', compact('menu', 'linksl1'));
@@ -81,6 +69,9 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $menu = Menu::findOrFail($id);
         $this->validate(request(), [
             'name' => ['required', 'max:100']
@@ -98,6 +89,9 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+        
         $menu = Menu::find($id);
         Menu::destroy($menu->id);
         return redirect()->action('MenuController@index');

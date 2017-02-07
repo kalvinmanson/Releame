@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Auth;
 use App\Menu;
 use App\Link;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -32,6 +32,17 @@ abstract class Controller extends BaseController
             return "ec";
         } else {
             return "co";
+        }
+    }
+
+    public function hasrole($role) {
+        //validar solo admin
+        $current_user = Auth::user();
+        if($current_user->rol == $role) {
+            return true;
+        } else {
+            flash('No tiene permiso para acceder a esta área.', 'danger');
+            return false;
         }
     }
 

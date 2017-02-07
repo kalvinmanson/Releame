@@ -16,18 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $users = User::orderBy('updated_at', 'desc')->paginate(20);
         return view('users/index', compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,19 +31,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -60,7 +44,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
     }
 
     /**
@@ -72,7 +57,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
     }
 
     /**
@@ -83,6 +69,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
     }
 }

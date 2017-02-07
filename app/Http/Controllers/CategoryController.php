@@ -16,19 +16,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $categories = Category::orderBy('updated_at', 'desc')->paginate(20);
         return view('categories/index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('categories/create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,6 +32,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $this->validate(request(), [
             'name' => ['required', 'max:100'],
             'slug' => ['unique:categories', 'required', 'max:50']
@@ -47,17 +44,6 @@ class CategoryController extends Controller
         return redirect()->action('CategoryController@index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($slug)
-    {
-        $category = Category::where('slug', $slug)->firstOrFail();
-        return view('categories/show', compact('category'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -67,6 +53,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $category = Category::find($id);
         return view('categories/edit', compact('category'));
     }
@@ -80,6 +69,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+
         $category = Category::findOrFail($id);
         $this->validate(request(), [
             'name' => ['required', 'max:100']
@@ -97,6 +89,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        // Only Admins
+        if(!$this->hasrole('Admin')) { return redirect('/'); }
+        
         $category = Category::find($id);
         Category::destroy($category->id);
         return redirect()->action('CategoryController@index');
