@@ -12,16 +12,12 @@
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/animations.css') !!}
     {!! Html::style('css/app.css') !!}
-    @if (Auth::check() && Auth::user()->rol == 'Admin')
-    	{!! Html::script('editor/ckeditor.js') !!}
-    @endif
     
 </head>
 <body>
 	<header>
 		<div class="container">
 			<p align="center"><a href="{{ url('/') }}"><img src="http://droni.co/img/logo-dronico.png"></a></p>
-			@include('partials.menu', ['menu_id' => 1])
 		</div>
 
 	</header>
@@ -35,10 +31,6 @@
 			<p>&copy; 2017 By Droni.co</p>
 		</div>
 	</footer>
-
-	@if (Auth::check() && Auth::user()->rol == 'Admin')
-		@include('partials.admin')
-	@endif
 
 	{!! Html::script('js/jquery.min.js') !!}
 	{!! Html::script('js/bootstrap.min.js') !!}

@@ -6,16 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name_en', 'name_es', 'slug'];
 
-    public function pages()
+    public function books()
     {
-        return $this->hasMany('App\Page');
-    }
-
-    public function fields()
-    {
-        return $this->hasMany('App\Field');
+        return $this->hasMany('App\Book');
     }
 
     // this is a recommended way to declare event handlers
@@ -23,7 +18,7 @@ class Category extends Model
         parent::boot();
 
         static::deleting(function($category) { // before delete() method call this
-             $category->pages()->delete();
+             $category->books()->delete();
              // do the rest of the cleanup...
         });
     }
