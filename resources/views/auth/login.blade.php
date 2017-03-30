@@ -1,11 +1,11 @@
-@extends('layouts.auth')
+@extends('layouts.app')
 
 @section('content')
 
     <div class="panel panel-default">
         <div class="panel-heading"><h4>Login</h4></div>
         <div class="panel-body">
-            <form method="POST" action="/auth/login">
+            <form method="POST" action="/{{ LaravelLocalization::getCurrentLocale() }}/auth/login">
                 {!! csrf_field() !!}
 
                 <div class="form-group">

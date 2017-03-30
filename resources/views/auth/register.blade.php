@@ -1,5 +1,5 @@
 <!-- resources/views/auth/register.blade.php -->
-@extends('layouts.auth')
+@extends('layouts.app')
 
 @section('content')
 
@@ -7,27 +7,27 @@
         <div class="panel-heading"><h4>Register</h4></div>
         <div class="panel-body">
             @include('partials.errors')
-            <form method="POST" action="/auth/register">
+            <form method="POST" action="/{{ LaravelLocalization::getCurrentLocale() }}/auth/register">
                 {!! csrf_field() !!}
 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control">
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control">
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control">
+                    <input type="password" name="password" id="password" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
                 </div>
 
                 <div class="form-group">

@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    protected $fillable = ['name', 'author', 'publisher', 'collection', 'pages', 'isbn10', 'isbn13', 'abstract', 'description', 'lang', 'condition', 'stock', 'price', 'tags', 'rank'];
+    protected $fillable = ['user_id', 'name', 'slug', 'author', 'publisher', 'collection', 'pages', 'isbn10', 'isbn13', 'abstract', 'description', 'lang', 'condition', 'stock', 'price', 'tags', 'rank'];
 
     public function user()
     {
