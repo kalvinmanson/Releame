@@ -31,7 +31,12 @@
 <div class="container">
 	<ul>
 		@foreach($books as $book)
-		<li>{{ $book->name }}</li>
+		<li>
+			<h2>{{ $book->name }}</h2>
+			<img src="/photos/{{ $book->picture }}" class="img-responsive">
+			<p>{{ $book->description }}</p>
+		</li>
+
 		@endforeach
 	</ul>
 </div>

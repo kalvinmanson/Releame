@@ -11,7 +11,9 @@
         "laracasts/flash": "^2.0",
         "graham-campbell/htmlmin": "^4.5",
         "anhskohbo/no-captcha": "^2.3",
-        "mcamara/laravel-localization": "1.0.*"
+        "mcamara/laravel-localization": "1.0.*",
+        "intervention/image": "^2.3",
+        "cviebrock/eloquent-sluggable": "4.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

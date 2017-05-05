@@ -54,28 +54,32 @@ class BookController extends Controller
     {
         $current_user = Auth::user();
         
-        // subir imagen
-        if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
-            
-            $file = $request->file('picture');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $file->getFilename().'.'.$extension;
-            //redimencionar imagem
-            $img = Image::make($request->file('picture')->getRealPath());
-            $img->widen(900);
-            Storage::disk('local')->put($filename,  $img->stream());
-        } else {
-            $this->validate(request(), [
-                'name' => ['required', 'min:10']
-            ]);
-        }
+        $this->validate(request(), [
+            'file_picture' => 'required | mimes:jpeg,jpg,png | max:1000',
+            'name' => ['required', 'min:5', 'max:100'],
+            'author' => ['required', 'min:5', 'max:50'],
+            'publisher' => ['required', 'min:5', 'max:50'],
+            'lang' => ['required', 'min:2', 'max:2'],
+            'tags' => ['required', 'min:5', 'max:50'],
+            'abstract' => ['required', 'min:50'],
+            'description' => ['required', 'min:20'],
+            'price' => ['required', 'integer', 'min:1', 'max:50'],
+        ]);
+        // subir imagen            
+        $file = $request->file('file_picture');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $file->getFilename().'.'.$extension;
+        //redimencionar imagem
+        $img = Image::make($request->file('file_picture')->getRealPath());
+        $img->widen(900);
+        Storage::disk('local')->put($filename,  $img->stream());
+        // end subir imagen 
         $record_store = request()->all();
-        if(isset($filename) && !empty($filename)) {
-            $record_store['picture'] = $filename;
-        }
+        $record_store['picture'] = $filename;
         $record_store['user_id'] = $current_user->id;
         //dd($record_store);
-        $book = Book::create($record_store);
+        $book = new Book($record_store);
+        $book->save();
         flash('Tu libro a sido publicado', 'success');
         return redirect()->action('BookController@index');
     }

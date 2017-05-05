@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ LaravelLocalization::getCurrentLocaleName() }}">
 <head>
 	<meta charset="utf-8">
-	<title>Drodmin - @yield('title')</title>
+	<title>@yield('title')</title>
 	<meta name="keywords" content="@yield('meta-keywords')">
     <meta name="description" content="@yield('meta-keywords')">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

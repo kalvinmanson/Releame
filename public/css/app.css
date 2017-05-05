@@ -7,6 +7,9 @@
 @media (max-width: $screen-md-max) { ... }
 @media (min-width: $screen-lg-min) { ... }
 */
+a {
+  cursor: pointer; }
+
 a:hover {
   text-decoration: none; }
 
@@ -28,5 +31,9 @@ header .menuprin .logo {
   background-position: bottom;
   padding: 30px 0;
   color: #EEEFF7; }
+
+.spacer {
+  display: block;
+  padding: 20px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Book extends Model
 {
-    protected $fillable = ['user_id', 'name', 'slug', 'author', 'publisher', 'collection', 'pages', 'isbn10', 'isbn13', 'abstract', 'description', 'lang', 'condition', 'stock', 'price', 'tags', 'rank'];
+    protected $fillable = ['user_id', 'picture', 'name', 'slug', 'author', 'publisher', 'collection', 'pages', 'isbn10', 'isbn13', 'abstract', 'description', 'lang', 'condition', 'stock', 'price', 'tags', 'rank'];
 
     public function user()
     {
@@ -27,4 +28,14 @@ class Book extends Model
     }
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    use Sluggable;
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 }
